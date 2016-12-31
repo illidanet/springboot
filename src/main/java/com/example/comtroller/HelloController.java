@@ -1,13 +1,13 @@
-package com.example.com.example.comtroller;
+package com.example.comtroller;
 
+import com.example.pojos.Hello;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Calendar;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by artha on 2016/12/25.
@@ -15,11 +15,16 @@ import java.util.Calendar;
 //@RestController
 @Controller
 public class HelloController {
-//    @RequestMapping("/")
-//    @ResponseBody
-//    public String index() {
-//        return "Hello World!";
-//    }
+
+    private static final String template = "Hello, %s!";
+    private final AtomicLong counter = new AtomicLong();
+
+    @RequestMapping("/greeting")
+    @ResponseBody
+    public Hello greeting(@RequestParam(value="name", defaultValue="World") String name) {
+        return new Hello(counter.incrementAndGet(),
+                String.format(template, name));
+    }
 
 
     @RequestMapping("/hello")
