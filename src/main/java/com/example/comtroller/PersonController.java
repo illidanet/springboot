@@ -22,17 +22,17 @@ public class PersonController extends WebMvcConfigurerAdapter{
 
     }
 
-    @GetMapping("/")
+    @GetMapping("/show")
     public String showForm(PersonForm personForm){
         return "form";
     }
 
-    @PostMapping("/")
+    @PostMapping("/show")
     public String checkPersonInfo(@Valid PersonForm personForm, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             return "form";
         }
-
+        System.out.println(personForm.toString());
         return "redirect:/results";
     }
 

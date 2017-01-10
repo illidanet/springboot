@@ -30,7 +30,7 @@ import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 
 
 @SpringBootApplication
-@EnableScheduling
+//@EnableScheduling
 public class DemoApplication implements CommandLineRunner {
 
 	private static final Logger log= LoggerFactory.getLogger(DemoApplication.class);
@@ -38,16 +38,16 @@ public class DemoApplication implements CommandLineRunner {
 	public static void main(String[] args) throws InterruptedException {
 		ApplicationContext ctx=SpringApplication.run(DemoApplication.class, args);
 
-        StringRedisTemplate template=ctx.getBean(StringRedisTemplate.class);
-        CountDownLatch latch = ctx.getBean(CountDownLatch.class);
+//        StringRedisTemplate template=ctx.getBean(StringRedisTemplate.class);
+//        CountDownLatch latch = ctx.getBean(CountDownLatch.class);
+//
+//        LOGGER.info("Sending message...");
+//        template.convertAndSend("chat", "Hello from Redis!");
 
-        LOGGER.info("Sending message...");
-        template.convertAndSend("chat", "Hello from Redis!");
 
+        //latch.await();
 
-        latch.await();
-
-        System.exit(0);
+        //System.exit(0);
 	}
 
     @Bean
@@ -100,35 +100,35 @@ public class DemoApplication implements CommandLineRunner {
     }
 
 
-    @Bean
-    RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory,
-                                            MessageListenerAdapter listenerAdapter) {
-
-        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
-        container.setConnectionFactory(connectionFactory);
-        container.addMessageListener(listenerAdapter, new PatternTopic("chat"));
-
-        return container;
-    }
-
-    @Bean
-    MessageListenerAdapter listenerAdapter(Receiver receiver) {
-        return new MessageListenerAdapter(receiver, "receiveMessage");
-    }
-
-    @Bean
-    Receiver receiver(CountDownLatch latch) {
-        return new Receiver(latch);
-    }
-
-    @Bean
-    CountDownLatch latch() {
-        return new CountDownLatch(1);
-    }
-
-    @Bean
-    StringRedisTemplate template(RedisConnectionFactory connectionFactory) {
-        return new StringRedisTemplate(connectionFactory);
-    }
+//    @Bean
+//    RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory,
+//                                            MessageListenerAdapter listenerAdapter) {
+//
+//        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+//        container.setConnectionFactory(connectionFactory);
+//        container.addMessageListener(listenerAdapter, new PatternTopic("chat"));
+//
+//        return container;
+//    }
+//
+//    @Bean
+//    MessageListenerAdapter listenerAdapter(Receiver receiver) {
+//        return new MessageListenerAdapter(receiver, "receiveMessage");
+//    }
+//
+//    @Bean
+//    Receiver receiver(CountDownLatch latch) {
+//        return new Receiver(latch);
+//    }
+//
+//    @Bean
+//    CountDownLatch latch() {
+//        return new CountDownLatch(1);
+//    }
+//
+//    @Bean
+//    StringRedisTemplate template(RedisConnectionFactory connectionFactory) {
+//        return new StringRedisTemplate(connectionFactory);
+//    }
 
 }
