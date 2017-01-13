@@ -23,7 +23,7 @@ public class AccountController extends WebMvcConfigurerAdapter {
     }
 
     @GetMapping("/login")
-    public String logIn(){
+    public String logIn(Account account){
         return "login";
     }
 
