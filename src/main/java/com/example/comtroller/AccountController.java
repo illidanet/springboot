@@ -42,7 +42,7 @@ public class AccountController extends WebMvcConfigurerAdapter {
    @PostMapping("/signup")
     public String checkAccountInfo(@Valid Account account, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
-            return "form";
+            return "login";
         }
         accountMapper.insert(account.getEmail(),account.getPassword());
         System.out.println(account.toString());

@@ -50,6 +50,7 @@
                     <div class="col-sm-4 col-sm-offset-4">
                         <label for="exampleInputEmail1" class="sr-only">Email address</label>
                         <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" th:field="*{email}" />
+                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email Error</span>
                     </div>
                 </div>
             </div>
@@ -58,6 +59,7 @@
                     <div class="col-sm-4 col-sm-offset-4">
                         <label for="exampleInputPassword1" class="sr-only">Password</label>
                         <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" th:field="*{password}" />
+                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password Error</span>
                     </div>
                 </div>
             </div>
