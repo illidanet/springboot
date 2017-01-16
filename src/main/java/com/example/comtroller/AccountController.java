@@ -1,5 +1,6 @@
 package com.example.comtroller;
 
+import com.example.imapper.AccountMapper;
 import com.example.pojos.Account;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -16,6 +17,17 @@ import javax.validation.Valid;
 @Controller
 public class AccountController extends WebMvcConfigurerAdapter {
 
+
+    private final AccountMapper accountMapper;
+
+    public AccountController(AccountMapper accountMapper){
+        this.accountMapper=accountMapper;
+    }
+
+//    public void setAccountMapper(AccountMapper accountMapper){
+//        this.accountMapper=accountMapper;
+//    }
+
     @Override
     public void addViewControllers(ViewControllerRegistry registry){
         registry.addViewController("/results").setViewName("results");
@@ -27,11 +39,12 @@ public class AccountController extends WebMvcConfigurerAdapter {
         return "login";
     }
 
-    @PostMapping("/signup")
+   @PostMapping("/signup")
     public String checkAccountInfo(@Valid Account account, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             return "form";
         }
+        accountMapper.insert(account.getEmail(),account.getPassword());
         System.out.println(account.toString());
         return "redirect:/results";
     }
