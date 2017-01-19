@@ -43,7 +43,6 @@ public class AccountController extends WebMvcConfigurerAdapter {
         }
         accountMapper.insert(account.getEmail(),account.getPassword());
         session.setAttribute("user",account.getEmail());
-        System.out.println(account.toString());
         return "redirect:/results";
     }
 
@@ -53,7 +52,8 @@ public class AccountController extends WebMvcConfigurerAdapter {
             return "login";
         }
         Account userAccount = accountMapper.findByEmail(account.getEmail());
-        if (userAccount != null && userAccount.getPassword() == account.getPassword()) {
+
+        if (userAccount != null && userAccount.getPassword().equals(account.getPassword())) {
             session.setAttribute("user", account.getEmail());
             System.out.println(account.toString());
             return "redirect:/results";
