@@ -23,7 +23,7 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/logout" th:text="'hello,'+${session.user}" th:unless="${session==null||session.user==null}">Login</a></li>
+                    <li><a href="/login">Login</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Services<span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -38,7 +38,40 @@
         </div>
     </nav>
     <div class="container">
-        <h2>Congratulations!</h2>
+        <form action="#" class="loginform" th:action="@{/signup}" th:object="${account}" method="post">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-4 col-sm-offset-4">
+                        <h2>Please sign up</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-4 col-sm-offset-4">
+                        <label for="exampleInputEmail1" class="sr-only">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" th:field="*{email}" />
+                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email Error</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-4 col-sm-offset-4">
+                        <label for="exampleInputPassword1" class="sr-only">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" th:field="*{password}" />
+                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password Error</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-4 col-sm-offset-4">
+                        <button type="submit" class="btn btn-lg btn-primary btn-block">Sign up</button>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
     <script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

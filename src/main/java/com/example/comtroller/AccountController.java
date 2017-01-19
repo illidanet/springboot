@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 /**
@@ -24,10 +25,6 @@ public class AccountController extends WebMvcConfigurerAdapter {
         this.accountMapper=accountMapper;
     }
 
-//    public void setAccountMapper(AccountMapper accountMapper){
-//        this.accountMapper=accountMapper;
-//    }
-
     @Override
     public void addViewControllers(ViewControllerRegistry registry){
         registry.addViewController("/results").setViewName("results");
@@ -40,12 +37,28 @@ public class AccountController extends WebMvcConfigurerAdapter {
     }
 
    @PostMapping("/signup")
-    public String checkAccountInfo(@Valid Account account, BindingResult bindingResult){
+    public String checkAccountInfo(@Valid Account account, BindingResult bindingResult, HttpSession session){
         if (bindingResult.hasErrors()) {
             return "login";
         }
         accountMapper.insert(account.getEmail(),account.getPassword());
+        session.setAttribute("user",account.getEmail());
         System.out.println(account.toString());
         return "redirect:/results";
     }
+
+    @PostMapping("/login")
+    public String logIn(@Valid Account account, BindingResult bindingResult, HttpSession session){
+        if (bindingResult.hasErrors()) {
+            return "login";
+        }
+        Account userAccount = accountMapper.findByEmail(account.getEmail());
+        if (userAccount != null && userAccount.getPassword() == account.getPassword()) {
+            session.setAttribute("user", account.getEmail());
+            System.out.println(account.toString());
+            return "redirect:/results";
+        }
+        return "results_failed";
+    }
+
 }

@@ -1,6 +1,6 @@
 package com.example.imapper;
 
-import com.example.pojos.User;
+import com.example.pojos.Account;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -13,7 +13,7 @@ import org.apache.ibatis.annotations.Select;
 public interface AccountMapper {
 
     @Select("SELECT * FROM User WHERE Email = #{email}")
-    User findByEmail(@Param("email") String email);
+    Account findByEmail(@Param("email") String email);
     @Insert("INSERT INTO User(Email, Password) VALUES(#{email}, #{password})")
     int insert(@Param("email") String email, @Param("password") String password);
 }
