@@ -37,10 +37,6 @@ public class DemoApplication  {
 
 	private static final Logger log= LoggerFactory.getLogger(DemoApplication.class);
 
-	@Autowired
-    private static UserMapper userMapper;
-
-
 	public static void main(String[] args) throws InterruptedException {
 		ApplicationContext ctx=SpringApplication.run(DemoApplication.class, args);
 

@@ -72,7 +72,7 @@
 		</dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-redis</artifactId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
         <dependency>
             <groupId>org.mybatis</groupId>
@@ -102,16 +102,16 @@
 			<artifactId>nekohtml</artifactId>
 			<version>1.9.21</version>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-core</artifactId>
-			<version>RELEASE</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.security</groupId>-->
+			<!--<artifactId>spring-security-test</artifactId>-->
+			<!--<scope>test</scope>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.security</groupId>-->
+			<!--<artifactId>spring-security-core</artifactId>-->
+			<!--<version>RELEASE</version>-->
+		<!--</dependency>-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
