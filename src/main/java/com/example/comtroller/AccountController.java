@@ -2,6 +2,7 @@ package com.example.comtroller;
 
 import com.example.imapper.AccountMapper;
 import com.example.pojos.Account;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,12 +37,18 @@ public class AccountController extends WebMvcConfigurerAdapter {
         return "login";
     }
 
-   @PostMapping("/signup")
+    @GetMapping("/signup")
+    public String singUp(Account account){
+        return "signup";
+    }
+
+
+    @PostMapping("/signup")
     public String checkAccountInfo(@Valid Account account, BindingResult bindingResult, HttpSession session){
         if (bindingResult.hasErrors()) {
             return "login";
         }
-        accountMapper.insert(account.getEmail(),account.getPassword());
+        accountMapper.insert(account.getEmail(),new BCryptPasswordEncoder().encode(account.getPassword()));
         session.setAttribute("user",account.getEmail());
         return "redirect:/results";
     }
