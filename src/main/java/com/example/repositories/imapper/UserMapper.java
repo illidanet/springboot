@@ -1,6 +1,6 @@
-package com.example.imapper;
+package com.example.repositories.imapper;
 
-import com.example.pojos.User;
+import com.example.tutorials.pojos.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

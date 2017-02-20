@@ -1,4 +1,4 @@
-package com.example.pojos;
+package com.example.tutorials.pojos;
 
 /**
  * Created by ALex on 31/12/2016.

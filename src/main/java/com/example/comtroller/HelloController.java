@@ -1,6 +1,6 @@
 package com.example.comtroller;
 
-import com.example.pojos.Hello;
+import com.example.tutorials.pojos.Hello;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;

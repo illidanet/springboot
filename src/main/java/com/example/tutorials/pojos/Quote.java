@@ -1,4 +1,4 @@
-package com.example.pojos;
+package com.example.tutorials.pojos;
 
 /**
  * Created by artha on 2016/12/31.

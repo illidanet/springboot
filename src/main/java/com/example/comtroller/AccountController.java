@@ -1,7 +1,9 @@
 package com.example.comtroller;
 
-import com.example.imapper.AccountMapper;
-import com.example.pojos.Account;
+import com.example.comtroller.form.AccountForm;
+import com.example.repositories.entities.Account;
+import com.example.service.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -19,11 +21,11 @@ import javax.validation.Valid;
 @Controller
 public class AccountController extends WebMvcConfigurerAdapter {
 
+    @Autowired
+    private final AccountService accountService;
 
-    private final AccountMapper accountMapper;
-
-    public AccountController(AccountMapper accountMapper){
-        this.accountMapper=accountMapper;
+    public AccountController(AccountService accountService){
+        this.accountService=accountService;
     }
 
     @Override
@@ -44,27 +46,29 @@ public class AccountController extends WebMvcConfigurerAdapter {
 
 
     @PostMapping("/signup")
-    public String checkAccountInfo(@Valid Account account, BindingResult bindingResult, HttpSession session){
+    public String checkAccountInfo(@Valid AccountForm account, BindingResult bindingResult, HttpSession session){
         if (bindingResult.hasErrors()) {
             return "login";
         }
-        accountMapper.insert(account.getEmail(),new BCryptPasswordEncoder().encode(account.getPassword()));
-        session.setAttribute("user",account.getEmail());
+
+        account.setPassword(new BCryptPasswordEncoder().encode(account.getPassword()));
+        accountService.saveAccount(account);
         return "redirect:/results";
     }
 
     @PostMapping("/login")
-    public String logIn(@Valid Account account, BindingResult bindingResult, HttpSession session){
+    public String logIn(@Valid AccountForm account, BindingResult bindingResult, HttpSession session){
         if (bindingResult.hasErrors()) {
             return "login";
         }
-        Account userAccount = accountMapper.findByEmail(account.getEmail());
+        AccountForm userAccount = accountService.GetAccountByEmail(account.getEmail());
 
-        if (userAccount != null && userAccount.getPassword().equals(account.getPassword())) {
+        if (new BCryptPasswordEncoder().encode(userAccount.getPassword()).equals(account.getPassword())) {
             session.setAttribute("user", account.getEmail());
             System.out.println(account.toString());
             return "redirect:/results";
         }
+
         return "results_failed";
     }
 

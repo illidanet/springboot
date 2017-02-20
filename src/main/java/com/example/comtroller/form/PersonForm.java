@@ -1,4 +1,4 @@
-package com.example.form;
+package com.example.comtroller.form;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;

@@ -1,24 +1,15 @@
-package com.example.pojos;
-
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+package com.example.repositories.entities;
 
 /**
  * Created by j_chena on 2017/1/13.
  */
-public class Account {
 
+public class Account {
 
     private long id;
 
-    @NotNull
-    @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$",message = "invalid email address")
     private String email;
 
-    @NotNull
-    @Size(min = 6,max = 30,message = "not strong enough")
     private String password;
 
     public long getId() {
