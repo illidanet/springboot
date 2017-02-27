@@ -3,6 +3,7 @@ package com.example.service;
 import com.example.comtroller.form.AccountForm;
 import com.example.repositories.entities.Account;
 import com.example.repositories.imapper.AccountMapper;
+import com.example.service.interfaces.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -10,11 +11,11 @@ import org.springframework.stereotype.Component;
  * Created by illidanet on 2/20/17.
  */
 @Component
-public class AccountService {
+public class AccountServiceImpl implements AccountService {
 
     private AccountMapper mapper;
 
-    public AccountService(AccountMapper mapper){
+    public AccountServiceImpl(AccountMapper mapper){
         this.mapper=mapper;
     }
 
@@ -25,12 +26,16 @@ public class AccountService {
         mapper.insert(account);
     }
 
-    public AccountForm GetAccountByEmail(String email){
+    public AccountForm GetAccountFormByEmail(String email){
         AccountForm form=new AccountForm();
         Account account=mapper.findByEmail(email);
         form.setEmail(account.getEmail());
         form.setPassword(account.getPassword());
         return form;
+    }
+
+    public Account GetAccountByEmail(String email){
+        return mapper.findByEmail(email);
     }
 
 }

@@ -2,7 +2,7 @@ package com.example.comtroller;
 
 import com.example.comtroller.form.AccountForm;
 import com.example.repositories.entities.Account;
-import com.example.service.AccountService;
+import com.example.service.AccountServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -22,10 +22,10 @@ import javax.validation.Valid;
 public class AccountController extends WebMvcConfigurerAdapter {
 
     @Autowired
-    private final AccountService accountService;
+    private final AccountServiceImpl accountServiceImpl;
 
-    public AccountController(AccountService accountService){
-        this.accountService=accountService;
+    public AccountController(AccountServiceImpl accountServiceImpl){
+        this.accountServiceImpl = accountServiceImpl;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class AccountController extends WebMvcConfigurerAdapter {
         }
 
         account.setPassword(new BCryptPasswordEncoder().encode(account.getPassword()));
-        accountService.saveAccount(account);
+        accountServiceImpl.saveAccount(account);
         return "redirect:/results";
     }
 
@@ -61,7 +61,7 @@ public class AccountController extends WebMvcConfigurerAdapter {
         if (bindingResult.hasErrors()) {
             return "login";
         }
-        AccountForm userAccount = accountService.GetAccountByEmail(account.getEmail());
+        AccountForm userAccount = accountServiceImpl.GetAccountByEmail(account.getEmail());
 
         if (new BCryptPasswordEncoder().encode(userAccount.getPassword()).equals(account.getPassword())) {
             session.setAttribute("user", account.getEmail());
