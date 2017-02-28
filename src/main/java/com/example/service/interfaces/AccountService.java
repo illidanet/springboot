@@ -10,8 +10,10 @@ public interface AccountService {
 
     void saveAccount(AccountForm form);
 
-    AccountForm GetAccountFormByEmail(String email);
+    AccountForm getAccountFormByEmail(String email);
 
-    Account GetAccountByEmail(String email);
+    Account getAccountByEmail(String email);
+
+    void autoLogin(String email,String password);
 
 }

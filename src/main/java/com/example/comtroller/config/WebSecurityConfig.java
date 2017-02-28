@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -19,19 +20,25 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
+    @Autowired
+    private UserDetailsService userDetailsService;
+
     @Override
     protected void configure(HttpSecurity httpSecurity)throws Exception {
         httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
                 and().authorizeRequests().antMatchers("/","/index.html").permitAll()
         .anyRequest().authenticated().and()
-        .formLogin().loginPage("/login").permitAll().and()
-        .formLogin().loginPage("/signup").permitAll().and()
+        .formLogin().loginPage("/login").permitAll()
+                .usernameParameter("email")
+                .and()
+        .formLogin().loginPage("/signup").permitAll()
+                .usernameParameter("email").and()
         .logout().permitAll();
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService();
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Override
