@@ -28,22 +28,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
                 and().authorizeRequests().antMatchers("/","/index.html").permitAll()
         .anyRequest().authenticated().and()
-        .formLogin().loginPage("/login").permitAll()
-                .usernameParameter("email")
+        .formLogin().loginPage("/login")
+                .usernameParameter("email").successForwardUrl("/templates/results.html")
+                .failureForwardUrl("/templates/results_failed.html")
+                .permitAll()
                 .and()
-        .formLogin().loginPage("/signup").permitAll()
-                .usernameParameter("email").and()
+//        .formLogin().loginPage("/signup").permitAll()
+//                .usernameParameter("email").and()
         .logout().permitAll();
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsService);
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/css/**","/js/**");
+        web.debug(true);
     }
 
     @Bean

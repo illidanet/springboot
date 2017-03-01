@@ -22,11 +22,11 @@ import javax.validation.Valid;
 public class AccountController extends WebMvcConfigurerAdapter {
 
     @Autowired
-    private final AccountService accountService;
+    private AccountService accountService;
 
-    public AccountController(AccountService accountService){
-        this.accountService = accountService;
-    }
+//    public AccountController(AccountService accountService){
+//        this.accountService = accountService;
+//    }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry){
@@ -53,23 +53,24 @@ public class AccountController extends WebMvcConfigurerAdapter {
 
         account.setPassword(new BCryptPasswordEncoder().encode(account.getPassword()));
         accountService.saveAccount(account);
+        accountService.autoLogin(account.getEmail(),account.getPassword());
         return "redirect:/results";
     }
 
-    @PostMapping("/login")
-    public String logIn(@Valid AccountForm account, BindingResult bindingResult, HttpSession session){
-        if (bindingResult.hasErrors()) {
-            return "login";
-        }
-        AccountForm userAccount = accountService.getAccountFormByEmail(account.getEmail());
-
-        if (new BCryptPasswordEncoder().encode(userAccount.getPassword()).equals(account.getPassword())) {
-            session.setAttribute("user", account.getEmail());
-            System.out.println(account.toString());
-            return "redirect:/results";
-        }
-
-        return "results_failed";
-    }
+//    @PostMapping("/login")
+//    public String logIn(@Valid AccountForm account, BindingResult bindingResult, HttpSession session){
+//        if (bindingResult.hasErrors()) {
+//            return "login";
+//        }
+//        AccountForm userAccount = accountService.getAccountFormByEmail(account.getEmail());
+//
+//        if (new BCryptPasswordEncoder().encode(userAccount.getPassword()).equals(account.getPassword())) {
+//            session.setAttribute("user", account.getEmail());
+//            System.out.println(account.toString());
+//            return "redirect:/results";
+//        }
+//
+//        return "results_failed";
+//    }
 
 }

@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.repositories.entities.Account;
+import com.example.service.interfaces.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
@@ -17,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserDetailServiceImpl implements UserDetailsService {
 
     @Autowired
-    private AccountServiceImpl accountServiceImpl;
+    private AccountService accountServiceImpl;
 
     @Override
     @Transactional(readOnly = true)

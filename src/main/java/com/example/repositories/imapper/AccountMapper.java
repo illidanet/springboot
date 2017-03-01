@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface AccountMapper {
 
-    @Select("SELECT * FROM User WHERE Email = #{email}")
+    @Select("SELECT * FROM User WHERE Email = #{email} limit 1")
     Account findByEmail(@Param("email") String email);
     @Insert("INSERT INTO User(Email, Password) VALUES(#{email}, #{password})")
     int insert(Account account);

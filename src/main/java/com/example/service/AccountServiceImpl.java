@@ -32,7 +32,7 @@ public class AccountServiceImpl implements AccountService {
         Account account=new Account();
         account.setRole(Role.user);
         account.setEmail(form.getEmail());
-        account.setPassword(new BCryptPasswordEncoder().encode(form.getPassword()));
+        account.setPassword(form.getPassword());
         mapper.insert(account);
     }
 
