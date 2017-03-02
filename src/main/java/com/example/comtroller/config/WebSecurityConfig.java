@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity httpSecurity)throws Exception {
-        httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
+        httpSecurity.authorizeRequests().anyRequest().authenticated().
                 and().authorizeRequests().antMatchers("/","/index.html").permitAll()
         .anyRequest().authenticated().and()
         .formLogin().loginPage("/login")
