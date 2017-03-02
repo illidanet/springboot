@@ -3,6 +3,8 @@ package com.example.comtroller;
 import com.example.comtroller.form.AccountForm;
 import com.example.repositories.entities.Account;
 import com.example.service.interfaces.AccountService;
+import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,8 @@ public class AccountController extends WebMvcConfigurerAdapter {
 
     @Autowired
     private AccountService accountService;
+
+    private org.slf4j.Logger logger= LoggerFactory.getLogger(this.getClass());
 
 //    public AccountController(AccountService accountService){
 //        this.accountService = accountService;
@@ -60,7 +64,14 @@ public class AccountController extends WebMvcConfigurerAdapter {
 
     @RequestMapping("/results")
     public String loginSuccess(){
-        return "redirect:/results";
+        logger.info("log in success");
+        return "results";
+    }
+
+    @RequestMapping("/results_failed")
+    public String loginFailed(){
+        logger.info("log in failed");
+        return "results_failed";
     }
 
 //    @PostMapping("/login")

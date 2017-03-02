@@ -12,6 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 /**
  * Created by ALex on 04/02/2017.
@@ -22,15 +23,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Autowired
     private UserDetailsService userDetailsService;
+    @Autowired
+    private AuthenticationSuccessHandler authenticationSuccessHandler;
 
     @Override
     protected void configure(HttpSecurity httpSecurity)throws Exception {
         httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
                 and().authorizeRequests().antMatchers("/","/index.html").permitAll()
         .anyRequest().authenticated().and()
-        .formLogin().defaultSuccessUrl("/results").loginPage("/login")
-                .usernameParameter("email")//.defaultSuccessUrl("/templates/results.html",true)
-                .failureForwardUrl("/templates/results_failed.html")
+        .formLogin().loginPage("/login")
+                .usernameParameter("email").successHandler(authenticationSuccessHandler)
+                //.failureForwardUrl("/results_failed")
                 .permitAll()
                 .and()
 //        .formLogin().loginPage("/signup").permitAll()
@@ -47,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/css/**","/js/**");
-        web.debug(true);
+        //web.debug(true);
     }
 
     @Bean
