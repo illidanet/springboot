@@ -28,14 +28,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
                 and().authorizeRequests().antMatchers("/","/index.html").permitAll()
         .anyRequest().authenticated().and()
-        .formLogin().loginPage("/login")
-                .usernameParameter("email").successForwardUrl("/templates/results.html")
+        .formLogin().defaultSuccessUrl("/results").loginPage("/login")
+                .usernameParameter("email")//.defaultSuccessUrl("/templates/results.html",true)
                 .failureForwardUrl("/templates/results_failed.html")
                 .permitAll()
                 .and()
 //        .formLogin().loginPage("/signup").permitAll()
 //                .usernameParameter("email").and()
         .logout().permitAll();
+        httpSecurity.csrf().disable();
     }
 
     @Autowired

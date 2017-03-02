@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -54,6 +55,11 @@ public class AccountController extends WebMvcConfigurerAdapter {
         account.setPassword(new BCryptPasswordEncoder().encode(account.getPassword()));
         accountService.saveAccount(account);
         accountService.autoLogin(account.getEmail(),account.getPassword());
+        return "redirect:/results";
+    }
+
+    @RequestMapping("/results")
+    public String loginSuccess(){
         return "redirect:/results";
     }
 
