@@ -44,14 +44,14 @@ public class AccountController extends WebMvcConfigurerAdapter {
         return "login";
     }
 
-    @GetMapping("/signup")
+    @GetMapping("/registration")
     public String singUp(Account account){
         return "signup";
     }
 
 
-    @PostMapping("/signup")
-    public String checkAccountInfo(@Valid AccountForm account, BindingResult bindingResult, HttpSession session){
+    @PostMapping("/registration")
+    public String checkAccountInfo(@Valid AccountForm account, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             return "login";
         }
@@ -73,21 +73,4 @@ public class AccountController extends WebMvcConfigurerAdapter {
         logger.info("log in failed");
         return "results_failed";
     }
-
-//    @PostMapping("/login")
-//    public String logIn(@Valid AccountForm account, BindingResult bindingResult, HttpSession session){
-//        if (bindingResult.hasErrors()) {
-//            return "login";
-//        }
-//        AccountForm userAccount = accountService.getAccountFormByEmail(account.getEmail());
-//
-//        if (new BCryptPasswordEncoder().encode(userAccount.getPassword()).equals(account.getPassword())) {
-//            session.setAttribute("user", account.getEmail());
-//            System.out.println(account.toString());
-//            return "redirect:/results";
-//        }
-//
-//        return "results_failed";
-//    }
-
 }

@@ -28,18 +28,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity httpSecurity)throws Exception {
-        httpSecurity.authorizeRequests().anyRequest().authenticated().
-                and().authorizeRequests().antMatchers("/","/index.html").permitAll()
-        .anyRequest().authenticated().and()
+        httpSecurity.authorizeRequests().
+                antMatchers("/").permitAll()
+                .antMatchers("/registration").permitAll()
+                        .anyRequest().authenticated()
+        .and()
         .formLogin().loginPage("/login")
                 .usernameParameter("email").successHandler(authenticationSuccessHandler)
                 //.failureForwardUrl("/results_failed")
                 .permitAll()
                 .and()
-//        .formLogin().loginPage("/signup").permitAll()
-//                .usernameParameter("email").and()
-        .logout().permitAll();
-        httpSecurity.csrf().disable();
+                .logout().permitAll();
     }
 
     @Autowired
