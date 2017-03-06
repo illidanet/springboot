@@ -17,6 +17,6 @@ public class AccountValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
-        ValidationUtils
+        ValidationUtils.
     }
 }

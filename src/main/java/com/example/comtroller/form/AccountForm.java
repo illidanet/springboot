@@ -1,5 +1,7 @@
 package com.example.comtroller.form;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -11,10 +13,12 @@ public class AccountForm {
     private long id;
 
     @NotNull
+    @NotBlank
     @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$",message = "invalid email address")
     private String email;
 
     @NotNull
+    @NotBlank
     @Size(min = 6,max = 30,message = "not strong enough")
     private String password;
 
