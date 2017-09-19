@@ -1,6 +1,6 @@
 package com.example.service.interfaces;
 
-import com.example.comtroller.form.AccountForm;
+import com.example.controller.form.AccountForm;
 import com.example.repositories.entities.Account;
 
 /**

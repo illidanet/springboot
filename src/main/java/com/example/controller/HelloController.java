@@ -1,4 +1,4 @@
-package com.example.comtroller;
+package com.example.controller;
 
 import com.example.tutorials.pojos.Hello;
 import org.springframework.stereotype.Controller;

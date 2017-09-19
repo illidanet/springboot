@@ -1,4 +1,4 @@
-package com.example.comtroller.config;
+package com.example.controller.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

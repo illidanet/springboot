@@ -1,6 +1,6 @@
-package com.example.comtroller.validator;
+package com.example.controller.validator;
 
-import com.example.comtroller.form.AccountForm;
+import com.example.controller.form.AccountForm;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;

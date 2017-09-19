@@ -1,9 +1,8 @@
-package com.example.comtroller;
+package com.example.controller;
 
-import com.example.comtroller.form.AccountForm;
+import com.example.controller.form.AccountForm;
 import com.example.repositories.entities.Account;
 import com.example.service.interfaces.AccountService;
-import org.apache.log4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 /**

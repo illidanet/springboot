@@ -1,6 +1,6 @@
-package com.example.comtroller;
+package com.example.controller;
 
-import com.example.comtroller.form.PersonForm;
+import com.example.controller.form.PersonForm;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
